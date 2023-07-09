@@ -7,7 +7,7 @@ class NewsApi {
   NewsApi({required this.dio, required this.apiKey});
   Future<List<NewsEntity>> getRecentNews() async {
     final res = await dio
-        .get('/v2/everything?q=tech&sortBy=publishedAt&apiKey=$apiKey');
+        .get('/v2/everything?q=singapore&sortBy=publishedAt&apiKey=$apiKey');
     return List<Map<String, dynamic>>.from(res.data['articles'])
         .map((e) => NewsEntity.fromJson(e))
         .toList();
