@@ -15,7 +15,7 @@ The app uses the BLOC (Business Logic Component) pattern to manage the state of 
 - Cached Thumbnail with Fallback and Loading Placeholder
 
 ## Screenshots
-![Screenshot 1](https://github.com/mimamch/news_app_clean_architecture/blob/main/screenshot1.png|width=100px )
+![Screenshot 1](https://github.com/mimamch/news_app_clean_architecture/blob/main/screenshot1.png | width=100px )
 
 
 ## Installation
