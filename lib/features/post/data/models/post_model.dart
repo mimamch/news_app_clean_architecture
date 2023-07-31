@@ -1,13 +1,18 @@
-class PostModel {
+import 'package:equatable/equatable.dart';
+
+class PostModel extends Equatable {
   final int id;
   final String title;
   final String body;
 
-  PostModel({
+  const PostModel({
     required this.id,
     required this.title,
     required this.body,
   });
+
+  @override
+  get props => [id, title, body];
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(

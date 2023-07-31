@@ -35,43 +35,51 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     if (event is GetAllPostsEvent) {
       try {
         emit(PostLoading());
-        final result = await getAllPostsUseCase.call();
+        final result = await getAllPostsUseCase();
         emit(PostLoaded(posts: result));
       } on Failure catch (e) {
-        PostError(message: _mapFailureToMessage(e));
+        PostError(message: e.message);
       }
     }
 
     if (event is GetPostByIdEvent) {
       try {
         emit(PostLoading());
-        final result = await getPostByIdUseCase.call(event.id);
+        final result = await getPostByIdUseCase(event.id);
         emit(PostDetail(post: result));
       } on Failure catch (e) {
-        PostError(message: _mapFailureToMessage(e));
+        PostError(message: e.message);
       }
     }
 
     if (event is CreatePostEvent) {
-      emit(PostLoading());
-      await createPostUseCase.call(event.post);
-      emit(PostCreated());
+      try {
+        emit(PostLoading());
+        await createPostUseCase(event.post);
+        emit(PostCreated());
+      } on Failure catch (e) {
+        PostError(message: e.message);
+      }
     }
 
     if (event is EditPostEvent) {
-      emit(PostLoading());
-      await editPostUseCase.call(event.id, event.post);
-      emit(PostUpdated());
+      try {
+        emit(PostLoading());
+        await editPostUseCase(event.id, event.post);
+        emit(PostUpdated());
+      } on Failure catch (e) {
+        PostError(message: e.message);
+      }
     }
 
     if (event is DeletePostEvent) {
-      emit(PostLoading());
-      await deletePostByIdUseCase.call(event.id);
-      emit(PostDeleted());
+      try {
+        emit(PostLoading());
+        await deletePostByIdUseCase(event.id);
+        emit(PostDeleted());
+      } on Failure catch (e) {
+        PostError(message: e.message);
+      }
     }
   }
-}
-
-String _mapFailureToMessage(Failure failure) {
-  return 'An error occurred';
 }
