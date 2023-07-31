@@ -40,7 +40,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       } on Failure catch (e) {
         PostError(message: _mapFailureToMessage(e));
       }
-    } else if (event is GetPostByIdEvent) {
+    }
+
+    if (event is GetPostByIdEvent) {
       try {
         emit(PostLoading());
         final result = await getPostByIdUseCase.call(event.id);
@@ -48,15 +50,21 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       } on Failure catch (e) {
         PostError(message: _mapFailureToMessage(e));
       }
-    } else if (event is CreatePostEvent) {
+    }
+
+    if (event is CreatePostEvent) {
       emit(PostLoading());
       await createPostUseCase.call(event.post);
       emit(PostCreated());
-    } else if (event is EditPostEvent) {
+    }
+
+    if (event is EditPostEvent) {
       emit(PostLoading());
       await editPostUseCase.call(event.id, event.post);
       emit(PostUpdated());
-    } else if (event is DeletePostEvent) {
+    }
+
+    if (event is DeletePostEvent) {
       emit(PostLoading());
       await deletePostByIdUseCase.call(event.id);
       emit(PostDeleted());
